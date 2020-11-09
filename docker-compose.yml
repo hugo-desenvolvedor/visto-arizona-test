@@ -16,7 +16,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: 'visto-arizona-challenge-db'
+      MYSQL_DATABASE: 'visto'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
       MYSQL_ROOT_PASSWORD: ""
     volumes:
