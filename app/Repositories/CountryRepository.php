@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Country;
@@ -11,10 +12,22 @@ class CountryRepository
     protected $country;
 
     /**
-     * CountryRepository constructor
+     * CountryRepository constructor.
+     *
+     * @param Country $country
      */
     public function __construct(Country $country)
     {
         $this->country = $country;
+    }
+
+    /**
+     * Get all countries.
+     *
+     * @return Country $Country
+     */
+    public function getAll()
+    {
+        return $this->country->get();
     }
 }
