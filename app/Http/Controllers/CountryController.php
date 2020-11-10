@@ -31,17 +31,8 @@ class CountryController extends Controller
      */
     public function index(Request $params)
     {
-        $result = ['status' => 200];
+        $data = $this->countryService->getAll($params->all());
 
-        try {
-            $result['data'] = $this->countryService->getAll($params->all());
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
+        return view('country.index', compact('data'));
     }
 }
