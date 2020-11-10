@@ -24,6 +24,6 @@ Simple project using using Laravel 8 and Docker to list country codes.
 * Run `docker exec -it <laravel_container_id> bash` command to get the docker terminal.
 * Run `php artisan migrate` to migrate the database
 
-## Bibliography
+## References
 * [Jogesh Sharma](https://webomnizz.com/author/jogpi06/), [Containerize your Laravel Application with Docker Compose](https://webomnizz.com/containerize-your-laravel-application-with-docker-compose/)
 * [Saf Venture](https://dev.to/jsafe00),  [Implement CRUD with Laravel Service-Repository Pattern](https://dev.to/jsafe00/implement-crud-with-laravel-service-repository-pattern-1dkl)

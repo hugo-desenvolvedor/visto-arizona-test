@@ -32,8 +32,10 @@ class CountryService
      *
      * @return String
      */
-    public function getAll()
+    public function getAll($params = null)
     {
-        return $this->countryRepository->getAll();
+        $sort = $params['sort'] ?? 'id';
+
+        $countries = $this->countryRepository->getAll($sort);
     }
 }

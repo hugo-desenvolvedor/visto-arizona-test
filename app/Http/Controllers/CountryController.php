@@ -29,12 +29,12 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $params)
     {
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->countryService->getAll();
+            $result['data'] = $this->countryService->getAll($params->all());
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

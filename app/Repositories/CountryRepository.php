@@ -26,8 +26,8 @@ class CountryRepository
      *
      * @return Country $Country
      */
-    public function getAll()
+    public function getAll($sort)
     {
-        return $this->country->get();
+        return $this->country->orderBy($sort)->get();
     }
 }
