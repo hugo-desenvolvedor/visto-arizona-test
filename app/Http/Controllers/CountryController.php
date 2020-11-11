@@ -31,8 +31,11 @@ class CountryController extends Controller
      */
     public function index(Request $params)
     {
-        $data = $this->countryService->getAll($params->all());
+        $request = $params->all();
+        $selectedMenu = $params['sort'] ?? null;
 
-        return view('country.index', compact('data'));
+        $data = $this->countryService->getAll($request);
+
+        return view('country.index', compact('data', 'selectedMenu'));
     }
 }

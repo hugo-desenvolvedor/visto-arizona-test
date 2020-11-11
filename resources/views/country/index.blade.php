@@ -43,17 +43,48 @@
             table tbody td {
                 border-bottom: 1px solid black;
             }
+
+            h1 {
+                border-bottom: 1px solid black;
+                margin-bottom: 0px;
+            }
+
+            .menu {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 4px;
+                margin-bottom: 14px;
+            }
+
+            .menu a {
+                color: blue;
+            }
+
+            .menu a:hover {
+                text-decoration: underline;
+            }
+
+            .menu a.selected {
+                color: orange;
+            }
+
         </style>
     </head>
     <body class="antialiased">
         <div class="main-content">
+            @php
+                $i = 1;
+                $fieldOne = $data['fieldOrder']['field_1'];
+                $fieldTwo = $data['fieldOrder']['field_2'];
+            @endphp
+
             <h1>Country List</h1>
+            <div class="menu">
+                <a href="?sort=code" class="{!! $selectedMenu == "code" ? " selected" : "" !!}">Order by code</a>
+                <a href="?sort=name"  class="{!! $selectedMenu == "name" ? " selected" : "" !!}">Order by name</a>
+                <a href="">Export do CSV</a>
+            </div>
             <table>
-                @php
-                    $i = 1;
-                    $fieldOne = $data['fieldOrder']['field_1'];
-                    $fieldTwo = $data['fieldOrder']['field_2'];
-                @endphp
                 <thead>
                     <th>No</th>
                     <th>{{ $fieldOne }}</th>
