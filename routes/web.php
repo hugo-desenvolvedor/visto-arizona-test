@@ -19,4 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('countries', 'App\Http\Controllers\CountryController');
+Route::get('countries', [CountryController::class, 'index']);
+Route::get('countries/csv', [CountryController::class, 'exportCsv']);

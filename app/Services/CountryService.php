@@ -57,7 +57,7 @@ class CountryService
 
     private function setFieldOrder($params = null): void
     {
-        if (array_key_exists('sort', $params) && $params['sort'] === 'name') {
+        if ($params && array_key_exists('sort', $params) && $params['sort'] === 'name') {
             $this->fields = [
                 'field_1' => 'name',
                 'field_2' => 'code',
@@ -70,10 +70,54 @@ class CountryService
      */
     private function getSortParameter($param = null)
     {
+        if(!$param) {
+            return 'id';
+        }
+
         if(!array_key_exists('sort', $param)) {
             return 'id';
         }
 
         return in_array($param['sort'], ['code', 'name']) ? $param['sort'] : 'id';
+    }
+
+    /**
+     * @return Array
+     */
+    public function exportToCSVFile($isExcel = false)
+    {
+        $countries = $this->countryRepository->getAll()->toArray();
+
+        $callback = function() use ($countries) {
+            $file = fopen('php://output', 'w');
+
+            // Excel separator
+            if ($isExcel) {
+                fputcsv($file, 'sep=,');
+            }
+
+            // Column header
+            fputcsv($file, [
+                'Id',
+                'Code',
+                'Name',
+            ]);
+
+            foreach ($countries as $country) {
+                // Column lines
+                fputcsv($file, [
+                    $country['id'],
+                    $country['code'],
+                    $country['name'],
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return [
+            'callback' => $callback,
+            'filename' => sprintf('countries_%s.csv', date('YmdHis'))
+        ];
     }
 }
