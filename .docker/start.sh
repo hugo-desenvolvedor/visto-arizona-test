@@ -1,3 +1,5 @@
 #!/bin/sh
 
-exec docker-compose up -d
+docker-compose up -d
+
+$SHELL
