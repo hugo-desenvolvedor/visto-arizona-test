@@ -45,17 +45,37 @@ class CountryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function exportCsv(Request $params)
-    {
-        $csvFile = $this->countryService->exportToCSVFile();
-
+    {        
+        $filename = sprintf('countries_%s.csv', date('YmdHis'));
         $headers = array(
             "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=" . $csvFile['filename'],
+            "Content-Disposition" => "attachment; filename=" . $filename,
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
             "Expires"             => "0"
         );
 
-        return response()->stream($csvFile['callback'], 200, $headers);
+        $callback =  function() {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, [
+                'id',
+                'code', 
+                'name'
+            ]);
+
+            $countries = $this->countryService->getAll();
+            foreach ($countries['countries'] as $country) {
+                fputcsv($handle, [
+                    $country->id,
+                    $country->code,
+                    $country->name
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->streamDownload($callback, $filename, $headers);
     }
 }

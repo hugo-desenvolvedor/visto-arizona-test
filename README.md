@@ -1,29 +1,20 @@
 # Country list project
 Simple project using using Laravel 8 and Docker to list country codes.
 
-## First run
+## Setup and install
 * Open a linux terminal.
 * Run `cd .docker`.
-* Run `.\start` or `docker-compose up -d` command.
+* Run `sudo bash build.sh` command to create the app container.
+* Run `sudo bash start.sh` command to start the containers.
+* Run `sudo bash setup-db.sh` command to create `visto` database.
+* Copy the `env.example` file and rename to `.env`.
+* Run `sudo bash setup-laravel.sh` command to install dependencies and configurate the laravel.
 
-### Running Laravel environment
-* Open a linux terminal.
-* Run `docker ps` command to get the container ID.
-* Run `docker exec -it <laravel_container_id> bash` command to get the docker terminal.
-* Run `composer install` command to install the Laravel's project dependencies.
-* Run `php artisan key:generate` command to generate an encrypted configuration key.
-* Run `exit` to finish the shell docker instance
+## Running containers
+* Run `sudo bash start.sh` command to run the containers.
 
-### Running Mysql environment
-* Open a linux terminal.
-* Run `docker exec -it <mysql_container_id>  mysql -u root` to access the mysql.
-* Run `create database visto;` to create the `visto` database.
-* Run `exit` to finish the shell docker instance .
-
-### Running migrations
-* Open a linux terminal.
-* Run `docker exec -it <laravel_container_id> bash` command to get the docker terminal.
-* Run `php artisan migrate` to migrate the database.
+## Stoping containers
+* Run `sudo bash start.sh` command to run the containers.
 
 ## Getting the countries
 * Access http://localhost:8080/countries

@@ -81,12 +81,9 @@ class CountryService
         return in_array($param['sort'], ['code', 'name']) ? $param['sort'] : 'id';
     }
 
-    /**
-     * @return Array
-     */
     public function exportToCSVFile($isExcel = false)
     {
-        $countries = $this->countryRepository->getAll()->toArray();
+        $countries = $this->countryRepository->getAll();
 
         $callback = function() use ($countries) {
             $file = fopen('php://output', 'w');
@@ -106,18 +103,15 @@ class CountryService
             foreach ($countries as $country) {
                 // Column lines
                 fputcsv($file, [
-                    $country['id'],
-                    $country['code'],
-                    $country['name'],
+                    $country->id,
+                    $country->code,
+                    $country->name,
                 ]);
             }
 
             fclose($file);
         };
 
-        return [
-            'callback' => $callback,
-            'filename' => sprintf('countries_%s.csv', date('YmdHis'))
-        ];
+        return $callback;
     }
 }
