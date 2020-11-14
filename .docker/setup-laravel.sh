@@ -10,6 +10,6 @@ echo "Migrating database..."
 docker-compose exec app php artisan migrate
 
 echo "Update permissions..."
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then chmod 777 -R ../storage; fi
+chmod 777 -R ../storage
 
 $SHELL
